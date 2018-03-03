@@ -13,3 +13,7 @@ const val API_KEY: String = BuildConfig.TMDB_API_KEY
 
 const val EXTRA_MOVIE_POSTER = "movie_poster"
 const val EXTRA_MOVIE_TITLE = "movie_title"
+const val EXTRA_MOVIE_OVERVIEW = "movie_overview"
+const val EXTRA_MOVIE_BACKDROP_POSTER = "movie_backdrop"
+const val EXTRA_MOVIE_RATING = "movie_rating"
+const val EXTRA_MOVIE_RELEASE = "movie_release"

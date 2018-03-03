@@ -13,7 +13,11 @@ import retrofit2.http.Query
 interface TMDBApiService {
 
     @GET("movie/{sort}?api_key=")
-    abstract fun getMovieList(@Path("sort") sort: String, @Query("api_key") apiKey: String): Observable<MovieResponse>
+    fun getMovieList(@Path("sort") sort: String, @Query("api_key") apiKey: String): Observable<MovieResponse>
+
+    @GET("movie/{sort}?api_key=")
+    fun getMovies(@Path("sort") sort: String, @Query("api_key") apiKey: String): Observable<Movie>
+
 
     @GET("movie/{id}?api_key=")
     abstract fun getMovie(@Path("id") id: String, @Query("api_key") apiKey: String): Observable<Movie>

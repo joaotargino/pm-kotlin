@@ -16,7 +16,7 @@ class MoviesPage() : Parcelable {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-
+        parcel?.writeList(movieList)
     }
 
     override fun describeContents(): Int {

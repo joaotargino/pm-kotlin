@@ -10,9 +10,7 @@ import com.moolajoo.popularmovies.R
 import com.moolajoo.popularmovies.adapters.GridMoviesAdapter
 import com.moolajoo.popularmovies.model.MovieResponse
 import com.moolajoo.popularmovies.networking.ApiClient
-import com.moolajoo.popularmovies.util.API_KEY
-import com.moolajoo.popularmovies.util.EXTRA_MOVIE_POSTER
-import com.moolajoo.popularmovies.util.EXTRA_MOVIE_TITLE
+import com.moolajoo.popularmovies.util.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -63,14 +61,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun populateMoviesList(movieList: List<MovieResponse.MovieData>?) {
         mMovieList = movieList
-        for (movie in mMovieList!!.iterator()) {
-            println(movie.movieTitle)
-        }
+//        for (movie in mMovieList!!.iterator()) {
+//            println(movie.movieTitle)
+//        }
 
         adapter = GridMoviesAdapter(this, mMovieList!!) { movieItem ->
             val movieIntent = Intent(this, DetailActivity::class.java)
-            movieIntent.putExtra(EXTRA_MOVIE_POSTER, movieItem.backdrop_path)
+            movieIntent.putExtra(EXTRA_MOVIE_POSTER, movieItem.poster_path)
             movieIntent.putExtra(EXTRA_MOVIE_TITLE, movieItem.movieTitle)
+            movieIntent.putExtra(EXTRA_MOVIE_RATING, movieItem.vote_average)
+            movieIntent.putExtra(EXTRA_MOVIE_OVERVIEW, movieItem.overview)
+            movieIntent.putExtra(EXTRA_MOVIE_BACKDROP_POSTER, movieItem.backdrop_path)
+            movieIntent.putExtra(EXTRA_MOVIE_RELEASE, movieItem.release_date)
             startActivity(movieIntent)
             Toast.makeText(this, movieItem.movieTitle, Toast.LENGTH_SHORT).show()
         }

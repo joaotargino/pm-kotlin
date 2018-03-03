@@ -24,7 +24,10 @@ class Movie(val title: String, val voteAverage: Double, val voteCount: Int, val 
     override fun writeToParcel(dest: Parcel?, flags: Int) {
         dest?.writeString(title)
         dest?.writeString(overview)
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        dest?.writeDouble(voteAverage)
+        dest?.writeString(posterBackdrop)
+        dest?.writeString(posterPath)
+
     }
 
     override fun describeContents(): Int {
