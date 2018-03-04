@@ -10,7 +10,8 @@ import com.moolajoo.popularmovies.R
 import com.moolajoo.popularmovies.adapters.GridMoviesAdapter
 import com.moolajoo.popularmovies.model.MovieResponse
 import com.moolajoo.popularmovies.networking.ApiClient
-import com.moolajoo.popularmovies.util.*
+import com.moolajoo.popularmovies.util.API_KEY
+import com.moolajoo.popularmovies.util.EXTRA_MOVIE
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -27,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     var mMovieList: List<MovieResponse.MovieData>? = null
 
     lateinit var adapter: GridMoviesAdapter
+    private val viewPosition = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +39,15 @@ class MainActivity : AppCompatActivity() {
         fetchMovies("popular")
 //        fetchMovies("top_rated")
 
+    }
 
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
     }
 
     override fun onPause() {
@@ -67,12 +77,8 @@ class MainActivity : AppCompatActivity() {
 
         adapter = GridMoviesAdapter(this, mMovieList!!) { movieItem ->
             val movieIntent = Intent(this, DetailActivity::class.java)
-            movieIntent.putExtra(EXTRA_MOVIE_POSTER, movieItem.poster_path)
-            movieIntent.putExtra(EXTRA_MOVIE_TITLE, movieItem.movieTitle)
-            movieIntent.putExtra(EXTRA_MOVIE_RATING, movieItem.vote_average)
-            movieIntent.putExtra(EXTRA_MOVIE_OVERVIEW, movieItem.overview)
-            movieIntent.putExtra(EXTRA_MOVIE_BACKDROP_POSTER, movieItem.backdrop_path)
-            movieIntent.putExtra(EXTRA_MOVIE_RELEASE, movieItem.release_date)
+            movieIntent.putExtra(EXTRA_MOVIE, movieItem)
+
             startActivity(movieIntent)
             Toast.makeText(this, movieItem.movieTitle, Toast.LENGTH_SHORT).show()
         }

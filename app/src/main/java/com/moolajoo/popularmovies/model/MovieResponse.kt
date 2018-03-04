@@ -2,6 +2,7 @@ package com.moolajoo.popularmovies.model
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 /**
  * Created by joaopaulotargino on 2018-03-02.
@@ -11,7 +12,7 @@ class MovieResponse {
     @SerializedName("results")
     var data: List<MovieData>? = null
 
-    inner class MovieData {
+    inner class MovieData : Serializable {
         @SerializedName("vote_count")
         val vote_count: Int? = null
 
