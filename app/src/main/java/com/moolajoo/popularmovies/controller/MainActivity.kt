@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        fetchMovies("popular")
-//        fetchMovies("top_rated")
+//        fetchMovies("popular")
+        fetchMovies("top_rated")
 
     }
 

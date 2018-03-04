@@ -19,7 +19,6 @@ class DetailActivity : AppCompatActivity() {
 
         val movieObject = intent.getSerializableExtra(EXTRA_MOVIE) as MovieResponse.MovieData
 
-        println(movieObject.movieTitle)
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
@@ -31,17 +30,21 @@ class DetailActivity : AppCompatActivity() {
 //        val barTitle = "$movieExtrasTitle $movieExtrasRating"
 //        title = barTitle
 
+        //collapsed bar
         Picasso.with(this)
                 .load(BACKDROP_BASE_URL
                         + movieObject.poster_path)
                 .into(ivPoster)
 
+        //card 1
+        tvOverview.text = movieObject.overview
+
+        //card 2
         Picasso.with(this)
                 .load(BACKDROP_BASE_URL
                         + movieObject.backdrop_path)
                 .into(ivBackdrop)
-
-        tvOverview.text = movieObject.overview
+        tvOriginalTitle.text = movieObject.originalTitle
         val releaseText = "${getString(R.string.release_text)} ${movieObject.release_date}"
         tvReleaseDate.text = releaseText
         val ratingText = "${getString(R.string.rating_text)} ${movieObject.vote_average}"

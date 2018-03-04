@@ -25,6 +25,9 @@ class MovieResponse {
         @SerializedName("title")
         val movieTitle: String? = null
 
+        @SerializedName("original_title")
+        val originalTitle: String? = null
+
         @SerializedName("popularity")
         val popularity: Double? = null
 
