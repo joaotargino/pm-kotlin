@@ -6,10 +6,11 @@ import android.os.Parcelable
 /**
  * Created by joaopaulotargino on 2018-03-02.
  */
-class Movie(val title: String, val voteAverage: Double, val voteCount: Int, val idMovie: Int
-            , val popularity: Double, val posterPath: String, val posterBackdrop: String,
-            val overview: String, val releaseDate: String) : Parcelable {
+class Movie(val title: String, val original_title: String, val vote_average: Double, val vote_count: Int, val id: Int
+            , val popularity: Double, val poster_path: String, val backdrop_path: String,
+            val overview: String, val release_date: String) : Parcelable {
     constructor(parcel: Parcel) : this(
+            parcel.readString(),
             parcel.readString(),
             parcel.readDouble(),
             parcel.readInt(),
@@ -23,10 +24,16 @@ class Movie(val title: String, val voteAverage: Double, val voteCount: Int, val 
 
     override fun writeToParcel(dest: Parcel?, flags: Int) {
         dest?.writeString(title)
+        dest?.writeString(original_title)
+        dest?.writeDouble(vote_average)
+        dest?.writeInt(vote_count)
+        dest?.writeInt(id)
+        dest?.writeDouble(popularity)
+        dest?.writeString(poster_path)
+        dest?.writeString(backdrop_path)
         dest?.writeString(overview)
-        dest?.writeDouble(voteAverage)
-        dest?.writeString(posterBackdrop)
-        dest?.writeString(posterPath)
+        dest?.writeString(release_date)
+
 
     }
 

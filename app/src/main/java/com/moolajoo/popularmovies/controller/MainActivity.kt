@@ -8,7 +8,7 @@ import android.util.DisplayMetrics
 import android.widget.Toast
 import com.moolajoo.popularmovies.R
 import com.moolajoo.popularmovies.adapters.GridMoviesAdapter
-import com.moolajoo.popularmovies.model.MovieResponse
+import com.moolajoo.popularmovies.model.Movie
 import com.moolajoo.popularmovies.networking.ApiClient
 import com.moolajoo.popularmovies.util.API_KEY
 import com.moolajoo.popularmovies.util.EXTRA_MOVIE
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     }
     var disposable: Disposable? = null
 
-    var mMovieList: List<MovieResponse.MovieData>? = null
+    var mMovieList: List<Movie>? = null
 
     lateinit var adapter: GridMoviesAdapter
     private val viewPosition = 0
@@ -69,18 +69,16 @@ class MainActivity : AppCompatActivity() {
                         )
     }
 
-    private fun populateMoviesList(movieList: List<MovieResponse.MovieData>?) {
+
+    private fun populateMoviesList(movieList: List<Movie>?) {
         mMovieList = movieList
-//        for (movie in mMovieList!!.iterator()) {
-//            println(movie.movieTitle)
-//        }
 
         adapter = GridMoviesAdapter(this, mMovieList!!) { movieItem ->
             val movieIntent = Intent(this, DetailActivity::class.java)
             movieIntent.putExtra(EXTRA_MOVIE, movieItem)
 
             startActivity(movieIntent)
-            Toast.makeText(this, movieItem.movieTitle, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, movieItem.title, Toast.LENGTH_SHORT).show()
         }
         recyclerView.adapter = adapter
 

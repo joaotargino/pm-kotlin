@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.moolajoo.popularmovies.R
-import com.moolajoo.popularmovies.model.MovieResponse
+import com.moolajoo.popularmovies.model.Movie
 import com.moolajoo.popularmovies.util.POSTER_BASE_URL
 import com.squareup.picasso.Picasso
 
@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso
  * Created by joaopaulotargino on 2018-03-02.
  */
 
-class GridMoviesAdapter(context: Context, movieList: List<MovieResponse.MovieData>, val itemClick: (MovieResponse.MovieData) -> Unit) : RecyclerView.Adapter<GridMoviesAdapter.Holder>() {
+class GridMoviesAdapter(context: Context, movieList: List<Movie>, val itemClick: (Movie) -> Unit) : RecyclerView.Adapter<GridMoviesAdapter.Holder>() {
     val context = context
     val mMovieList = movieList
 
@@ -36,21 +36,20 @@ class GridMoviesAdapter(context: Context, movieList: List<MovieResponse.MovieDat
     }
 
 
-    inner class Holder(itemView: View?, val itemClick: (MovieResponse.MovieData) -> Unit) : RecyclerView.ViewHolder(itemView) {
+    inner class Holder(itemView: View?, val itemClick: (Movie) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
         val moviePoster = itemView?.findViewById<ImageView>(R.id.ivPoster)
         val movieTitle = itemView?.findViewById<TextView>(R.id.tvTitle)
         val movieRating = itemView?.findViewById<TextView>(R.id.tvRating)
 
-        fun bind(movie: MovieResponse.MovieData, context: Context) {
-            val movie = mMovieList[position]
-            movieTitle?.text = movie.movieTitle
+        fun bind(movie: Movie, context: Context) {
+            movieTitle?.text = movie.title
             movieRating?.text = movie.vote_average.toString()
             Picasso.with(context)
                     .load(POSTER_BASE_URL + movie.poster_path)
                     .into(moviePoster)
 
-            itemView.contentDescription = movie.movieTitle
+            itemView.contentDescription = movie.title
 
             itemView.setOnClickListener { itemClick(movie) }
         }
