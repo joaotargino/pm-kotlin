@@ -5,4 +5,14 @@
 
     <string name="release_text">Release Date: </string>
     <string name="rating_text">Average Rating: </string>
+    <string name="save_favorite">Save this movie to favorites</string>
+
+    <string name="order_by_rating">Rating</string>
+    <string name="order_by_popularity">Popularity</string>
+    <string name="order_by_favorites">Favorites</string>
+    <string name="TOP_RATED">top_rated</string>
+    <string name="POPULAR">popular</string>
+    <string name="FAVORITES">favorites</string>
+    <string name="MOVIES_CURRENT_ORDER">movies</string>
+    <string name="MOVIES_RESPONSE">response</string>
 </resources>

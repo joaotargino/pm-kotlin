@@ -20,7 +20,8 @@
         </activity>
         <activity
             android:name=".controller.DetailActivity"
-            android:parentActivityName=".controller.MainActivity">
+            android:parentActivityName=".controller.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".controller.MainActivity" />

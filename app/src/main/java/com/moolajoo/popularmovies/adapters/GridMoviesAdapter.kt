@@ -16,7 +16,8 @@ import com.squareup.picasso.Picasso
  * Created by joaopaulotargino on 2018-03-02.
  */
 
-class GridMoviesAdapter(context: Context, movieList: List<Movie>, val itemClick: (Movie) -> Unit) : RecyclerView.Adapter<GridMoviesAdapter.Holder>() {
+class GridMoviesAdapter(context: Context, movieList: List<Movie>, val itemClick: (Movie) -> Unit) :
+        RecyclerView.Adapter<GridMoviesAdapter.Holder>() {
     val context = context
     val mMovieList = movieList
 
@@ -24,17 +25,15 @@ class GridMoviesAdapter(context: Context, movieList: List<Movie>, val itemClick:
         return mMovieList.count()
     }
 
-    override fun onBindViewHolder(holder: Holder?, position: Int) {
+    override fun onBindViewHolder(holder: Holder, position: Int) {
         holder?.bind(mMovieList[position], context)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): Holder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val gridView = LayoutInflater.from(context)
                 .inflate(R.layout.poster_item, parent, false)
         return Holder(gridView, itemClick)
-
     }
-
 
     inner class Holder(itemView: View?, val itemClick: (Movie) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
