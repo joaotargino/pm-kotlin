@@ -42,13 +42,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private var mDB: MovieDatabase? = null
     private lateinit var mDbWorkerThread: DbWorkerThread
-    private val mUiHandler = Handler()
-
-    private var loadFinished = false
+    private var mUiHandler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        mDbWorkerThread = DbWorkerThread("dbWorkerThread")
+        mDbWorkerThread.start()
+        mDB = MovieDatabase.getInstance(this)
 
         if (savedInstanceState == null) {
             currentOrder = getString(R.string.POPULAR)
@@ -56,8 +58,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         } else {
             currentOrder = savedInstanceState.getString(getString(R.string.MOVIES_CURRENT_ORDER))
             movieResponse = savedInstanceState.getParcelable(getString(R.string.MOVIES_RESPONSE))
-            mMovieList = movieResponse?.data
-            populateMoviesList()
+
+            if (!currentOrder.equals(getString(R.string.FAVORITES))) {
+                mMovieList = movieResponse?.data
+                populateMoviesList()
+
+            } else {
+                fetchDataFromDb()
+                //bug: lateinit property mWorkerHandler has not been initialized
+            }
+
         }
 
         fab_popularity.setOnClickListener(this)
@@ -178,16 +188,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
 
     private fun fetchDataFromDb() {
-
-
-        mDbWorkerThread = DbWorkerThread("dbWorkerThread")
-        mDbWorkerThread.start()
-
-        mDB = MovieDatabase.getInstance(this)
+        favorites?.clear()
 
         val task = Runnable {
             val movieData =
                     mDB?.movieDataDao()?.getAll()
+
             mUiHandler.post({
                 if (movieData == null || movieData?.size == 0) {
                     Snackbar.make(recyclerView, getString(R.string.FAVORITES_EMPTY), Snackbar.LENGTH_SHORT).show()
@@ -205,9 +211,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         } catch (e: Exception) {
             println(e.message)
-
-            //catching this on the second time. wtf
-            //[lateinit property mWorkerHandler has not been initialized]
         }
     }
 
