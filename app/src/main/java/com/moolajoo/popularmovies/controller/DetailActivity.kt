@@ -112,6 +112,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun deleteDataInDb(movieData: MovieData) {
         val task = Runnable {
+//            mDB?.movieDataDao()?.deleteAll()
             mDB?.movieDataDao()?.delete(movieData)
         }
         mDbWorkerThread.postTask(task)
